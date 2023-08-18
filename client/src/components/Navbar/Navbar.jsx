@@ -1,22 +1,29 @@
 import "./Navbar.scss";
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import logo from "../../images/flipkartlogo.png";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const Navbar = () => {
+  const items = useSelector((state) => state.cart);
   return (
     <div className="navbar">
-      <img src={logo} alt="" />
+      <Link to="/">
+        <img src={logo} alt="" />
+      </Link>
       <div className="searchbox">
-        <input type="text" placeholder="Search Candidate" />
+        <input type="text" placeholder="Search Items" />
         <AiOutlineSearch className="icon" />
       </div>
 
       <div className="container">
-        <div className="btn-box">
-          Cart
+        <Link className="btn-box" to="/cart">
+          Cart({items.length})
           <AiOutlineShoppingCart className="icon" />
-        </div>
-        <button className="btn">Login / Signup</button>
+        </Link>
+        <Link className="btn" to="/auth">
+          Login / Signup
+        </Link>
       </div>
     </div>
   );
