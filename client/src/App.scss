@@ -7,3 +7,26 @@
 .app {
   font-family: "Bricolage Grotesque", sans-serif;
 }
+
+.btn {
+  width: 165px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 16px;
+  background-color: #4a71d6;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #2c57c7;
+}
