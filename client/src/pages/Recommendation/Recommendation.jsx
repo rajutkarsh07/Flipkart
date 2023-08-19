@@ -3,10 +3,13 @@ import "./Recommendation.scss";
 import axios from "axios";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import originalItems from "../../data/AirConditioners.json";
+import { HashLoader } from "react-spinners";
+import img from "../../images/noImg.png";
 
 const Recommendation = () => {
   const item = useSelector((state) => state.recommendation);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const sendItem = [...new Set(item)];
   // console.log(uniqueArray);
@@ -20,6 +23,7 @@ const Recommendation = () => {
           "content-type": "application/json",
         },
       };
+      setLoading(true);
       const { data } = await axios.post(
         "https://grid-recommendation-xp08.onrender.com/predict",
         {
@@ -34,6 +38,7 @@ const Recommendation = () => {
       // for (let i = 0; i < 20; i++) {
       //   products.push(originalItems[data.indices[i]]);
       // }
+      setLoading(false);
 
       const recommendedProducts = data.indices
         .slice(0, 20)
@@ -42,6 +47,7 @@ const Recommendation = () => {
 
       console.log(products);
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   };
@@ -50,27 +56,35 @@ const Recommendation = () => {
     if (sendItem.length > 0) {
       dataFetch();
     }
-  }, [sendItem]);
+  }, []);
 
   return (
     <div className="recommendation">
       <h2 className="heading">Recommendation</h2>
+      {loading ? <HashLoader color="#4a71d6" /> : ""}
       {products.length > 0 ? (
         products?.map((item, index) => (
           <div className="ProductCard" key={index}>
             <div className="img">
-              <img src={item.image} alt="" />
+              <img
+                src={item.image ? item.image : img}
+                alt=""
+                onError={(e) => {
+                  e.target.src = img;
+                }}
+                width={300}
+              />
             </div>
             <div className="details">
               <h2>{item.name.substring(0, 80)}...</h2>
               <div className="rate">
-                <p>{item.ratings}</p>
-                <p>{item.no_of_ratings}</p>
+                <p>{item.ratings ? item.ratings : 0} ⭐</p>
+                <p>{item.no_of_ratings ? item.no_of_ratings : 0} ratings</p>
               </div>
             </div>
             <div className="price">
               <h3>{item.discount_price}</h3>
-              <p>{item.actual_price}</p>
+              <p className="cut">{item.actual_price}</p>
               <button onClick={() => console.log("meow")} className="btn">
                 add to cart
               </button>

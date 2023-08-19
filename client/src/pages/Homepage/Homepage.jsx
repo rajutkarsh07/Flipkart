@@ -5,6 +5,7 @@ import { addId } from "../../store/recommendationSlice";
 import { Link } from "react-router-dom";
 import ac from "../../data/AirConditioners.json";
 import "./Homepage.scss";
+import img from "../../images/noImg.png";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -35,18 +36,25 @@ const Homepage = () => {
         {ac?.slice(0, visibleItems).map((item, index) => (
           <div className="ProductCard" key={index}>
             <div className="img">
-              <img src={item.image} alt="" />
+              <img
+                src={item.image ? item.image : img}
+                alt=""
+                onError={(e) => {
+                  e.target.src = img;
+                }}
+                width={300}
+              />
             </div>
             <div className="details">
               <h2>{item.name.substring(0, 80)}...</h2>
               <div className="rate">
-                <p>{item.ratings}</p>
-                <p>{item.no_of_ratings}</p>
+                <p>{item.ratings ? item.ratings : 0} ⭐</p>
+                <p>{item.no_of_ratings ? item.no_of_ratings : 0} ratings</p>
               </div>
             </div>
             <div className="price">
               <h3>{item.discount_price}</h3>
-              <p>{item.actual_price}</p>
+              <p className="cut">{item.actual_price}</p>
               <button onClick={() => handleAdd(item)} className="btn">
                 add to cart
               </button>
@@ -56,9 +64,11 @@ const Homepage = () => {
       </div>
 
       {visibleItems < ac.length && (
-        <button onClick={handleShowMore} className="btn">
-          Show More
-        </button>
+        <div className="show-more">
+          <button onClick={handleShowMore} className="btn">
+            Show More
+          </button>
+        </div>
       )}
     </div>
   );

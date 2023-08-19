@@ -9,6 +9,22 @@
     margin-top: 50px;
     font-size: 40px;
   }
+  .details {
+    .rate {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+
+  .price {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .cut {
+      text-decoration: line-through;
+    }
+  }
 
   .ProductCard {
     border-radius: 4px;
