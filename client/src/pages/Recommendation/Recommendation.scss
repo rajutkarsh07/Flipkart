@@ -1,0 +1,28 @@
+.recommendation {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+  .heading {
+    margin-top: 50px;
+    font-size: 40px;
+  }
+
+  .ProductCard {
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 2px 4px 18px 0px rgba(0, 0, 0, 0.1);
+    width: 1200px;
+    padding: 20px 30px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .notRecommend {
+    margin-top: 50px;
+  }
+}

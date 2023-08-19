@@ -21,7 +21,7 @@ const Cart = () => {
             <img src={item.image} alt="" />
             <h4>{item.title}</h4>
             <p>{item.price}</p>
-            <button className="btn-card" onClick={() => handleRemove(item.id)}>
+            <button className="btn" onClick={() => handleRemove(item.id)}>
               remove from cart
             </button>
           </div>
